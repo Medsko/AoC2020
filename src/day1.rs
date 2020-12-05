@@ -4,12 +4,14 @@ const INPUT_FILE: &str = "./resources/dayOne.txt";
 
 pub fn part_one() -> u32 {
     let numbers = utils::read_numbers_from_file(INPUT_FILE);
-    find_sum_2020(numbers)
+    let mut current: Vec<u32> = Vec::new();
+    find_sum_2020(numbers, &mut current, 2)
 }
 
 pub fn part_two() -> u32 {
     let numbers = utils::read_numbers_from_file(INPUT_FILE);
-    find_sum_2020_recursive(numbers, 3)
+    let mut current: Vec<u32> = Vec::new();
+    find_sum_2020(numbers, &mut current, 3)
 }
 
 fn find_sum_2020_recursive(numbers: Vec<u32>, size: usize) -> u32 {
@@ -26,19 +28,27 @@ fn find_sum_2020_recursive(numbers: Vec<u32>, size: usize) -> u32 {
     0
 }
 
+fn find_sum_2020(numbers: Vec<u32>,
+                 current: &mut Vec<u32>,
+                 size: usize) -> u32 {
 
-fn find_sum_2020(mut numbers: Vec<u32>) -> u32 {
-    numbers.sort();
-    'outer: for (index, number) in numbers.iter().enumerate() {
-        for i in index..numbers.len() {
-            if number + numbers[i] == 2020 {
-                return number * numbers[i]
-            } else if number + numbers[i] > 2020 {
-                continue 'outer
+    for index in 0..numbers.len() {
+        let mut available_numbers = numbers.clone();
+        current.push(available_numbers[index]);
+        available_numbers.drain(0..index + 1);
+
+        if current.len() == size {
+            // Check whether we have found the winning combination
+            if 2020 == current.iter().sum::<u32>() {
+                return current.iter().fold(1, |a, b| a* b);
             }
+            current.remove(size - 1);
+            continue;
         }
+        find_sum_2020(available_numbers, current, size);
+        current.remove(current.len() - 1);
     }
-    panic!("Could not find the two numbers with sum 2020!")
+    0
 }
 
 fn get_test_input() -> Vec<u32> {
@@ -46,7 +56,24 @@ fn get_test_input() -> Vec<u32> {
 }
 
 #[test]
+fn test_run_part_1() {
+    let numbers = get_test_input();
+    let mut current: Vec<u32> = Vec::new();
+    let answer = find_sum_2020(numbers, &mut current, 2);
+    assert_eq!(answer, 514579);
+}
+
+#[test]
 fn test_run_part_2() {
-    let answer = find_sum_2020_recursive(get_test_input(), 3);
+    let numbers = utils::read_numbers_from_file(INPUT_FILE);
+    let answer = find_sum_2020_recursive(numbers, 3);
+    assert_eq!(answer, 241861950);
+}
+
+#[test]
+fn test_run_part_2_final() {
+    let mut current: Vec<u32> = Vec::new();
+
+    let answer = find_sum_2020(get_test_input(), &mut current, 3);
     assert_eq!(answer, 241861950);
 }
