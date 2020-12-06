@@ -1,6 +1,6 @@
 use super::utils;
 
-const INPUT_FILE: &str = "./resources/dayThree.txt";
+const INPUT_FILE: &str = "./resources/day03.txt";
 
 struct Slope(usize, usize);
 
@@ -29,11 +29,9 @@ fn traverse_slope(pattern: &Vec<Vec<char>>, slope: &Slope) -> u32 {
     let mut x_index = 0;
     let mut trees_encountered: u32 = 0;
     let pattern_width = pattern[0].len();
-    let mut iterations = 0;
 
     for y_index in (slope.1..pattern.len()).step_by(slope.1) {
         x_index += slope.0;
-        iterations += 1;
         // Pattern repeats from left two right indefinitely, so x index should wrap around.
         if x_index >= pattern_width {
             x_index -= pattern_width;
@@ -72,7 +70,7 @@ fn pattern_is_read_from_file() {
 
 #[test]
 fn test_run_part_one() {
-    let pattern = read_pattern_from_file("./resources/test/dayThree.txt");
+    let pattern = read_pattern_from_file("./resources/test/day03.txt");
 
     let trees_encountered = traverse_slope(&pattern, &Slope(3, 1));
 
@@ -81,7 +79,7 @@ fn test_run_part_one() {
 
 #[test]
 fn part_one_solution() {
-    let pattern = read_pattern_from_file("./resources/dayThree.txt");
+    let pattern = read_pattern_from_file("./resources/day03.txt");
 
     let trees_encountered = traverse_slope(&pattern, &Slope(3, 1));
 
@@ -90,7 +88,7 @@ fn part_one_solution() {
 
 #[test]
 fn test_run_part_two() {
-    let pattern = read_pattern_from_file("./resources/test/dayThree.txt");
+    let pattern = read_pattern_from_file("./resources/test/day03.txt");
     let mut multiplied_encounters = 1;
     for slope in get_slopes().iter() {
         let trees_encountered = traverse_slope(&pattern, slope);
@@ -103,7 +101,7 @@ fn test_run_part_two() {
 
 #[test]
 fn part_two_solution() {
-    let pattern = read_pattern_from_file("./resources/dayThree.txt");
+    let pattern = read_pattern_from_file("./resources/day03.txt");
 
     let multiplied_encounters = traverse_slope_rubber_banded(pattern, get_slopes());
 

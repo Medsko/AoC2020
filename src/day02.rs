@@ -1,6 +1,6 @@
 use super::utils;
 
-const INPUT_FILE: &str = "./resources/dayTwo.txt";
+const INPUT_FILE: &str = "./resources/day02.txt";
 
 struct PasswordEntry {
     min: usize,

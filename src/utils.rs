@@ -1,5 +1,5 @@
 use std::fs::File;
-use std::io::{BufReader, BufRead};
+use std::io::{BufRead, BufReader};
 
 pub fn find_combinations(numbers: Vec<u32>,
                          current: &mut Vec<u32>,
@@ -61,12 +61,12 @@ fn combinations_have_correct_size() {
 
 #[test]
 fn all_lines_are_read_from_file() {
-    let lines = read_file_lines("./resources/dayOne.txt");
+    let lines = read_file_lines("./resources/day01.txt");
     assert_eq!(lines.len(), 200);
 }
 
 #[test]
 fn all_numbers_in_file_are_parsed() {
-    let total: u32 = read_numbers_from_file("./resources/dayOne.txt").iter().sum();
+    let total: u32 = read_numbers_from_file("./resources/day01.txt").iter().sum();
     assert_eq!(total, 321845)
 }

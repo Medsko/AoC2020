@@ -1,14 +1,17 @@
-mod day1;
-mod day2;
-mod day3;
+mod day01;
+mod day02;
+mod day03;
+mod day04;
 mod utils;
 
 fn main() {
-    day1::part_one();
-    day1::part_two();
-    day2::part_one();
-    day2::part_two();
-    day3::part_one();
-    day3::part_two();
+    // day01::part_one();
+    // day01::part_two();
+    // day02::part_one();
+    // day02::part_two();
+    // day03::part_one();
+    // day03::part_two();
+    // day04::part_one();
+    // day04::part_two();
 
 }

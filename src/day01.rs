@@ -1,6 +1,6 @@
 use super::utils;
 
-const INPUT_FILE: &str = "./resources/dayOne.txt";
+const INPUT_FILE: &str = "./resources/day01.txt";
 
 pub fn part_one() {
     let numbers = utils::read_numbers_from_file(INPUT_FILE);
