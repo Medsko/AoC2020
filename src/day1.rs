@@ -2,16 +2,18 @@ use super::utils;
 
 const INPUT_FILE: &str = "./resources/dayOne.txt";
 
-pub fn part_one() -> u32 {
+pub fn part_one() {
     let numbers = utils::read_numbers_from_file(INPUT_FILE);
     let mut current: Vec<u32> = Vec::new();
-    find_sum_2020(numbers, &mut current, 2)
+    let sum_2020_multiplied = find_sum_2020(numbers, &mut current, 2);
+    println!("Answer day 1 part one: {}", sum_2020_multiplied);
 }
 
-pub fn part_two() -> u32 {
+pub fn part_two() {
     let numbers = utils::read_numbers_from_file(INPUT_FILE);
     let mut current: Vec<u32> = Vec::new();
-    find_sum_2020(numbers, &mut current, 3)
+    let sum_2020_multiplied = find_sum_2020(numbers, &mut current, 3);
+    println!("Answer day 1 part two: {}", sum_2020_multiplied);
 }
 
 fn find_sum_2020_recursive(numbers: Vec<u32>, size: usize) -> u32 {
@@ -28,9 +30,7 @@ fn find_sum_2020_recursive(numbers: Vec<u32>, size: usize) -> u32 {
     0
 }
 
-fn find_sum_2020(numbers: Vec<u32>,
-                 current: &mut Vec<u32>,
-                 size: usize) -> u32 {
+fn find_sum_2020(numbers: Vec<u32>, current: &mut Vec<u32>, size: usize) -> u32 {
 
     for index in 0..numbers.len() {
         let mut available_numbers = numbers.clone();
@@ -40,7 +40,8 @@ fn find_sum_2020(numbers: Vec<u32>,
         if current.len() == size {
             // Check whether we have found the winning combination
             if 2020 == current.iter().sum::<u32>() {
-                return current.iter().fold(1, |a, b| a* b);
+                return current.iter()
+                    .fold(1, |a, b| a* b);
             }
             current.remove(size - 1);
             continue;
@@ -73,7 +74,8 @@ fn test_run_part_2() {
 #[test]
 fn test_run_part_2_final() {
     let mut current: Vec<u32> = Vec::new();
+    let numbers = utils::read_numbers_from_file(INPUT_FILE);
 
-    let answer = find_sum_2020(get_test_input(), &mut current, 3);
-    assert_eq!(answer, 241861950);
+    let answer = find_sum_2020(numbers, &mut current, 3);
+    assert_eq!(answer, 274879808);
 }

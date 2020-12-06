@@ -9,16 +9,18 @@ struct PasswordEntry {
     password: String,
 }
 
-pub fn part_one() -> usize {
-    read_passwords_from_file().iter()
+pub fn part_one() {
+    let valid_passwords_count = read_passwords_from_file().iter()
         .filter(|password| is_valid(*password))
-        .count()
+        .count();
+    println!("Answer day 2 part one: {}", valid_passwords_count);
 }
 
-pub fn part_two() -> usize {
-    read_passwords_from_file().iter()
+pub fn part_two() {
+    let valid_toboggan_passwords_count = read_passwords_from_file().iter()
         .filter(|password| is_valid_toboggan(*password))
-        .count()
+        .count();
+    println!("Answer day 2 part two: {}", valid_toboggan_passwords_count);
 }
 
 fn read_passwords_from_file() -> Vec<PasswordEntry> {
@@ -71,7 +73,6 @@ fn valid_password_is_judged_valid() {
     let valid_password = parse_password_entry("1-3 a: abcde");
     assert!(is_valid(&valid_password));
 }
-
 
 #[test]
 fn invalid_passwords_are_judged_invalid() {
