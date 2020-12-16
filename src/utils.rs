@@ -1,4 +1,4 @@
-use std::fs::File;
+use std::fs::{copy, File};
 use std::io::{BufRead, BufReader};
 
 pub fn find_combinations(numbers: Vec<u32>,
@@ -36,6 +36,19 @@ pub fn read_numbers_from_file(path: &str) -> Vec<u32> {
         .collect()
 }
 
+pub fn generate_solution_template(day: usize) {
+    let rust_file = format!("./src/day{:02}.rs", day);
+    let test_input_file = format!("./resources/test/day{:02}.txt", day);
+    let input_file = format!("./resources/day{:02}.txt", day);
+
+    copy("./resources/rust_file_template.txt", &rust_file)
+        .expect(&format!("Failed to create Rust file at: {}", &rust_file));
+    File::create(&test_input_file)
+        .expect(&format!("Failed to create test input file at: {}", &test_input_file));
+    File::create(&input_file)
+        .expect(&format!("Failed to create input file at: {}", &input_file));
+}
+
 #[test]
 fn all_combinations_found() {
     let input = vec![1721, 979, 366, 299, 675, 1456];
@@ -69,4 +82,9 @@ fn all_lines_are_read_from_file() {
 fn all_numbers_in_file_are_parsed() {
     let total: u32 = read_numbers_from_file("./resources/day01.txt").iter().sum();
     assert_eq!(total, 321845)
+}
+
+#[test]
+fn solution_template_is_generated() {
+    generate_solution_template(30);
 }

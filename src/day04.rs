@@ -109,7 +109,7 @@ fn parse_passport_line(line: &String, passport: &mut HashMap<String, String>) {
             panic!("Value {} was overwritten for this passport!", previous_value.unwrap()));
 }
 
-#[cfg!(test)]
+#[cfg(test)]
 mod tests {
     use super::*;
 

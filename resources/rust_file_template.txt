@@ -1,0 +1,34 @@
+#![allow(dead_code)]
+
+fn part_one() {
+
+}
+
+fn part_two() {
+
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_run_part_one() {
+
+    }
+
+    #[test]
+    fn part_one_solution() {
+
+    }
+
+    #[test]
+    fn test_run_part_two() {
+
+    }
+
+    #[test]
+    fn part_two_solution() {
+
+    }
+}

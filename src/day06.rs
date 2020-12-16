@@ -51,8 +51,7 @@ fn find_unique_answers(forms: Vec<String>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use crate::day06::{part_two, PUZZLE_INPUT, read_groups_from_file, TEST_FILE};
-    use crate::day06::part_one;
+    use super::*;
 
     #[test]
     fn groups_are_read_from_file() {

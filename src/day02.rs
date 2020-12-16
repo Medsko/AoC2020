@@ -59,7 +59,7 @@ fn is_valid_toboggan(entry: &PasswordEntry) -> bool {
     (chars[entry.min - 1] == entry.letter) ^ (chars[entry.max - 1] == entry.letter)
 }
 
-#[cfg!(test)]
+#[cfg(test)]
 mod tests {
     use super::*;
 

@@ -61,7 +61,7 @@ fn get_slopes() -> Vec<Slope> {
     ]
 }
 
-#[cfg!(test)]
+#[cfg(test)]
 mod tests {
     use super::*;
 

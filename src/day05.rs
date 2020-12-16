@@ -69,7 +69,7 @@ fn determine_position(specification: &str) -> u32 {
     position
 }
 
-#[cfg!(test)]
+#[cfg(test)]
 mod tests {
     use super::*;
 

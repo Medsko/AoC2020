@@ -58,7 +58,7 @@ fn get_test_input() -> Vec<u32> {
     vec![1721, 979, 366, 299, 675, 1456]
 }
 
-#[cfg!(test)]
+#[cfg(test)]
 mod tests {
     use super::*;
 
