@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use std::collections::hash_map::RandomState;
 use std::collections::HashMap;
 
@@ -107,50 +109,56 @@ fn parse_passport_line(line: &String, passport: &mut HashMap<String, String>) {
             panic!("Value {} was overwritten for this passport!", previous_value.unwrap()));
 }
 
-#[test]
-fn all_passports_are_parsed_from_test_file() {
-    let passports = parse_passports_from_file(TEST_INPUT_FILE);
+#[cfg!(test)]
+mod tests {
+    use super::*;
 
-    assert_eq!(4, passports.len());
-    let second_passport = &passports[1];
-    assert_eq!("028048884".to_string(), *second_passport.get("pid").unwrap());
-    assert_eq!("#cfa07d".to_string(), *second_passport.get("hcl").unwrap());
-    let fourth_passport = &passports[3];
-    assert_eq!("59in".to_string(), *fourth_passport.get("hgt").unwrap());
-}
+    #[test]
+    fn all_passports_are_parsed_from_test_file() {
+        let passports = parse_passports_from_file(TEST_INPUT_FILE);
 
-#[test]
-fn valid_passports_are_judged_valid() {
-    let passports = parse_passports_from_file(TEST_INPUT_FILE);
-    for i in (0..4).step_by(2) {
-        let valid_passport = &passports[i];
-        assert!(has_required_fields(valid_passport))
+        assert_eq!(4, passports.len());
+        let second_passport = &passports[1];
+        assert_eq!("028048884".to_string(), *second_passport.get("pid").unwrap());
+        assert_eq!("#cfa07d".to_string(), *second_passport.get("hcl").unwrap());
+        let fourth_passport = &passports[3];
+        assert_eq!("59in".to_string(), *fourth_passport.get("hgt").unwrap());
     }
-}
 
-#[test]
-fn invalid_passports_are_judged_invalid() {
-    let passports = parse_passports_from_file(TEST_INPUT_FILE);
-    for i in (1..4).step_by(2) {
-        let invalid_passport = &passports[i];
-        assert!(!has_required_fields(invalid_passport))
+    #[test]
+    fn valid_passports_are_judged_valid() {
+        let passports = parse_passports_from_file(TEST_INPUT_FILE);
+        for i in (0..4).step_by(2) {
+            let valid_passport = &passports[i];
+            assert!(has_required_fields(valid_passport))
+        }
     }
-}
 
-#[test]
-fn invalid_passports_are_judged_invalid_part_two() {
-    let passports = parse_passports_from_file("./resources/test/day04invalid.txt");
+    #[test]
+    fn invalid_passports_are_judged_invalid() {
+        let passports = parse_passports_from_file(TEST_INPUT_FILE);
+        for i in (1..4).step_by(2) {
+            let invalid_passport = &passports[i];
+            assert!(!has_required_fields(invalid_passport))
+        }
+    }
 
-    let valid_count = passports.iter().filter(|passport| is_valid(passport)).count();
+    #[test]
+    fn invalid_passports_are_judged_invalid_part_two() {
+        let passports = parse_passports_from_file("./resources/test/day04invalid.txt");
 
-    assert_eq!(0, valid_count);
-}
+        let valid_count = passports.iter().filter(|passport| is_valid(passport)).count();
 
-#[test]
-fn valid_passports_are_judged_valid_part_two() {
-    let passports = parse_passports_from_file("./resources/test/day04valid.txt");
+        assert_eq!(0, valid_count);
+    }
 
-    let valid_count = passports.iter().filter(|passport| is_valid(passport)).count();
+    #[test]
+    fn valid_passports_are_judged_valid_part_two() {
+        let passports = parse_passports_from_file("./resources/test/day04valid.txt");
 
-    assert_eq!(4, valid_count);
+        let valid_count = passports.iter().filter(|passport| is_valid(passport)).count();
+
+        assert_eq!(4, valid_count);
+    }
+
 }

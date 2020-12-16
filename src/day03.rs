@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use super::utils;
 
 const INPUT_FILE: &str = "./resources/day03.txt";
@@ -59,52 +61,57 @@ fn get_slopes() -> Vec<Slope> {
     ]
 }
 
-#[test]
-fn pattern_is_read_from_file() {
-    let pattern = read_pattern_from_file(INPUT_FILE);
+#[cfg!(test)]
+mod tests {
+    use super::*;
 
-    assert_eq!(323, pattern.len());
-    assert_eq!(31, pattern[0].len());
-    assert_eq!('#', pattern[0][2]);
-}
+    #[test]
+    fn pattern_is_read_from_file() {
+        let pattern = read_pattern_from_file(INPUT_FILE);
 
-#[test]
-fn test_run_part_one() {
-    let pattern = read_pattern_from_file("./resources/test/day03.txt");
-
-    let trees_encountered = traverse_slope(&pattern, &Slope(3, 1));
-
-    assert_eq!(7, trees_encountered);
-}
-
-#[test]
-fn part_one_solution() {
-    let pattern = read_pattern_from_file("./resources/day03.txt");
-
-    let trees_encountered = traverse_slope(&pattern, &Slope(3, 1));
-
-    assert_eq!(262, trees_encountered);
-}
-
-#[test]
-fn test_run_part_two() {
-    let pattern = read_pattern_from_file("./resources/test/day03.txt");
-    let mut multiplied_encounters = 1;
-    for slope in get_slopes().iter() {
-        let trees_encountered = traverse_slope(&pattern, slope);
-        println!("Trees encountered on slope {},{}: {}", slope.0, slope.1, trees_encountered);
-        multiplied_encounters *= trees_encountered;
+        assert_eq!(323, pattern.len());
+        assert_eq!(31, pattern[0].len());
+        assert_eq!('#', pattern[0][2]);
     }
 
-    assert_eq!(336, multiplied_encounters);
-}
+    #[test]
+    fn test_run_part_one() {
+        let pattern = read_pattern_from_file("./resources/test/day03.txt");
 
-#[test]
-fn part_two_solution() {
-    let pattern = read_pattern_from_file("./resources/day03.txt");
+        let trees_encountered = traverse_slope(&pattern, &Slope(3, 1));
 
-    let multiplied_encounters = traverse_slope_rubber_banded(pattern, get_slopes());
+        assert_eq!(7, trees_encountered);
+    }
 
-    assert_ne!(2791966320, multiplied_encounters);
-    assert_eq!(2698900776, multiplied_encounters);
+    #[test]
+    fn part_one_solution() {
+        let pattern = read_pattern_from_file("./resources/day03.txt");
+
+        let trees_encountered = traverse_slope(&pattern, &Slope(3, 1));
+
+        assert_eq!(262, trees_encountered);
+    }
+
+    #[test]
+    fn test_run_part_two() {
+        let pattern = read_pattern_from_file("./resources/test/day03.txt");
+        let mut multiplied_encounters = 1;
+        for slope in get_slopes().iter() {
+            let trees_encountered = traverse_slope(&pattern, slope);
+            println!("Trees encountered on slope {},{}: {}", slope.0, slope.1, trees_encountered);
+            multiplied_encounters *= trees_encountered;
+        }
+
+        assert_eq!(336, multiplied_encounters);
+    }
+
+    #[test]
+    fn part_two_solution() {
+        let pattern = read_pattern_from_file("./resources/day03.txt");
+
+        let multiplied_encounters = traverse_slope_rubber_banded(pattern, get_slopes());
+
+        assert_ne!(2791966320, multiplied_encounters);
+        assert_eq!(2698900776, multiplied_encounters);
+    }
 }

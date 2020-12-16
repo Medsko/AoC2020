@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use super::utils;
 
 const INPUT_FILE: &str = "./resources/day01.txt";
@@ -56,26 +58,31 @@ fn get_test_input() -> Vec<u32> {
     vec![1721, 979, 366, 299, 675, 1456]
 }
 
-#[test]
-fn test_run_part_1() {
-    let numbers = get_test_input();
-    let mut current: Vec<u32> = Vec::new();
-    let answer = find_sum_2020(numbers, &mut current, 2);
-    assert_eq!(answer, 514579);
-}
+#[cfg!(test)]
+mod tests {
+    use super::*;
 
-#[test]
-fn test_run_part_2() {
-    let numbers = utils::read_numbers_from_file(INPUT_FILE);
-    let answer = find_sum_2020_recursive(numbers, 3);
-    assert_eq!(answer, 241861950);
-}
+    #[test]
+    fn test_run_part_1() {
+        let numbers = get_test_input();
+        let mut current: Vec<u32> = Vec::new();
+        let answer = find_sum_2020(numbers, &mut current, 2);
+        assert_eq!(answer, 514579);
+    }
 
-#[test]
-fn test_run_part_2_final() {
-    let mut current: Vec<u32> = Vec::new();
-    let numbers = utils::read_numbers_from_file(INPUT_FILE);
+    #[test]
+    fn test_run_part_2() {
+        let numbers = utils::read_numbers_from_file(INPUT_FILE);
+        let answer = find_sum_2020_recursive(numbers, 3);
+        assert_eq!(answer, 241861950);
+    }
 
-    let answer = find_sum_2020(numbers, &mut current, 3);
-    assert_eq!(answer, 274879808);
+    #[test]
+    fn test_run_part_2_final() {
+        let mut current: Vec<u32> = Vec::new();
+        let numbers = utils::read_numbers_from_file(INPUT_FILE);
+
+        let answer = find_sum_2020(numbers, &mut current, 3);
+        assert_eq!(answer, 274879808);
+    }
 }

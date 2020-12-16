@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use super::utils;
 
 const INPUT_FILE: &str = "./resources/day05.txt";
@@ -67,32 +69,37 @@ fn determine_position(specification: &str) -> u32 {
     position
 }
 
-#[test]
-fn determines_seat_correctly() {
-    let seat_specification = "BFFFBBFRRR".to_string();
-    let seat = determine_seat(&seat_specification);
+#[cfg!(test)]
+mod tests {
+    use super::*;
 
-    assert_eq!(70, seat.row);
-    assert_eq!(7, seat.column);
-    assert_eq!(567, seat.get_seat_id());
-}
+    #[test]
+    fn determines_seat_correctly() {
+        let seat_specification = "BFFFBBFRRR".to_string();
+        let seat = determine_seat(&seat_specification);
 
-#[test]
-fn determines_position_correctly() {
-    let front_back = "FBFBBFF";
-    let left_right = "RLR";
+        assert_eq!(70, seat.row);
+        assert_eq!(7, seat.column);
+        assert_eq!(567, seat.get_seat_id());
+    }
 
-    assert_eq!(44, determine_position(front_back));
-    assert_eq!(5, determine_position(left_right));
-}
+    #[test]
+    fn determines_position_correctly() {
+        let front_back = "FBFBBFF";
+        let left_right = "RLR";
 
-#[test]
-fn part_one_solution() {
-    let all_ids = determine_all_seat_ids();
-    assert_eq!(871, *all_ids.iter().max().unwrap());
-}
+        assert_eq!(44, determine_position(front_back));
+        assert_eq!(5, determine_position(left_right));
+    }
 
-#[test]
-fn part_two_solution() {
-    assert_eq!(640, find_my_seat());
+    #[test]
+    fn part_one_solution() {
+        let all_ids = determine_all_seat_ids();
+        assert_eq!(871, *all_ids.iter().max().unwrap());
+    }
+
+    #[test]
+    fn part_two_solution() {
+        assert_eq!(640, find_my_seat());
+    }
 }

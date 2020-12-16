@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use super::utils;
 
 const INPUT_FILE: &str = "./resources/day02.txt";
@@ -57,59 +59,64 @@ fn is_valid_toboggan(entry: &PasswordEntry) -> bool {
     (chars[entry.min - 1] == entry.letter) ^ (chars[entry.max - 1] == entry.letter)
 }
 
-#[test]
-fn line_is_parsed_into_password_entry() {
-    let input = "15-16 l: klfbblslvjclmlnqklvg";
-    let parsed = parse_password_entry(input);
+#[cfg!(test)]
+mod tests {
+    use super::*;
 
-    assert_eq!(parsed.min, 15);
-    assert_eq!(parsed.max, 16);
-    assert_eq!(parsed.letter, 'l');
-    assert_eq!(parsed.password, "klfbblslvjclmlnqklvg".to_string());
-}
+    #[test]
+    fn line_is_parsed_into_password_entry() {
+        let input = "15-16 l: klfbblslvjclmlnqklvg";
+        let parsed = parse_password_entry(input);
 
-#[test]
-fn valid_password_is_judged_valid() {
-    let valid_password = parse_password_entry("1-3 a: abcde");
-    assert!(is_valid(&valid_password));
-}
+        assert_eq!(parsed.min, 15);
+        assert_eq!(parsed.max, 16);
+        assert_eq!(parsed.letter, 'l');
+        assert_eq!(parsed.password, "klfbblslvjclmlnqklvg".to_string());
+    }
 
-#[test]
-fn invalid_passwords_are_judged_invalid() {
-    let invalid_passwords = vec![
-        "1-3 b: cdefg",
-        "1-6 t: rttftttttttttmdttttt"
-    ];
+    #[test]
+    fn valid_password_is_judged_valid() {
+        let valid_password = parse_password_entry("1-3 a: abcde");
+        assert!(is_valid(&valid_password));
+    }
 
-    invalid_passwords.iter()
-        .map(|password| parse_password_entry(password))
-        .for_each(|entry| assert!(!is_valid(&entry)));
-}
+    #[test]
+    fn invalid_passwords_are_judged_invalid() {
+        let invalid_passwords = vec![
+            "1-3 b: cdefg",
+            "1-6 t: rttftttttttttmdttttt"
+        ];
 
-#[test]
-fn test_run_part_one() {
-    let valid_password_count = get_test_input().iter()
-        .map(|password| parse_password_entry(password))
-        .filter(|entry| is_valid(entry))
-        .count();
+        invalid_passwords.iter()
+            .map(|password| parse_password_entry(password))
+            .for_each(|entry| assert!(!is_valid(&entry)));
+    }
 
-    assert_eq!(2, valid_password_count);
-}
+    #[test]
+    fn test_run_part_one() {
+        let valid_password_count = get_test_input().iter()
+            .map(|password| parse_password_entry(password))
+            .filter(|entry| is_valid(entry))
+            .count();
 
-#[test]
-fn test_run_part_two() {
-    let valid_toboggan_password_count = get_test_input().iter()
-        .map(|password| parse_password_entry(password))
-        .filter(|entry| is_valid_toboggan(entry))
-        .count();
+        assert_eq!(2, valid_password_count);
+    }
 
-    assert_eq!(1, valid_toboggan_password_count);
-}
+    #[test]
+    fn test_run_part_two() {
+        let valid_toboggan_password_count = get_test_input().iter()
+            .map(|password| parse_password_entry(password))
+            .filter(|entry| is_valid_toboggan(entry))
+            .count();
 
-fn get_test_input() -> Vec<&'static str> {
-    vec![
-        "1-3 a: abcde",
-        "1-3 b: cdefg",
-        "2-9 c: ccccccccc"
-    ]
+        assert_eq!(1, valid_toboggan_password_count);
+    }
+
+    fn get_test_input() -> Vec<&'static str> {
+        vec![
+            "1-3 a: abcde",
+            "1-3 b: cdefg",
+            "2-9 c: ccccccccc"
+        ]
+    }
 }
